@@ -40,6 +40,9 @@ def get_server_info():
     except requests.exceptions.RequestException as e:
         return jsonify({"error": f"Failed to fetch presence data: {str(e)}"}), 500
 
+    # Логирование для отладки
+    print("Presence Data:", presence)
+
     # Получаем информацию о присутствии игрока
     user_presence = presence.get("userPresences", [])[0] if presence.get("userPresences") else {}
 
@@ -64,4 +67,3 @@ if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-
