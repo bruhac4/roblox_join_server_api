@@ -46,11 +46,11 @@ def get_server_info():
     # Получаем информацию о присутствии игрока
     user_presence = presence.get("userPresences", [])[0] if presence.get("userPresences") else {}
 
-    # Если игрок не в игре
+    # Если игрок не в игре или нет данных о сессии
     if not user_presence or user_presence.get("userPresenceType") != 2:
         return jsonify({"status": "offline"})
 
-    # Проверка на наличие 'gameSessionId'
+    # Проверка на наличие 'gameSessionId' и других данных
     game_session_id = user_presence.get("gameSessionId", None)
     if not game_session_id:
         return jsonify({"status": "not_found", "error": "No game session available for the user"})
